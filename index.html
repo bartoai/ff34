@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spline Scene</title>
+    <title>Burundi Bot</title>
+    <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/68917922e5bfa53990eff4e1_58fa949d867961412ca54ad778dab377.png">
     <style>
         * {
             margin: 0;
@@ -37,7 +38,7 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
-            width: 140px;
+            width: 160px;
             height: 50px;
             background: #f0f0f0;
             z-index: 500;
@@ -94,25 +95,36 @@
             transform: scale(1.1);
         }
         
-        .title-text {
+        .logo-image {
             position: absolute;
-            top: 15%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            color: rgba(0, 0, 0, 0.7);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 14px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            transform: translate(-50%, -50%);
+            max-width: 400px;
+            width: 80%;
+            height: auto;
             opacity: 0;
-            transition: all 0.6s ease;
-            z-index: 600;
-            text-align: center;
+            transition: all 0.8s ease;
+            z-index: 700;
+            animation: breathe 4s ease-in-out infinite;
         }
         
-        .title-text.fade-in {
+        .logo-image.fade-in {
             opacity: 1;
+        }
+        
+        @keyframes breathe {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+        
+        .logo-image:hover {
+            transform: translate(-50%, -50%) scale(1.1) !important;
+            transition: all 0.3s ease;
         }
         
         .error-message {
@@ -135,9 +147,6 @@
             <p>Please check your internet connection and try refreshing the page.</p>
         </div>
         
-        <!-- Title text above robot -->
-        <div class="title-text" id="titleText">Burundi Bot</div>
-        
         <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-UzhjroxQdkyENqM2H3T6FYJD/" 
                 class="spline-iframe"
                 id="splineFrame"
@@ -145,16 +154,28 @@
                 sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
         </iframe>
         
+        <!-- Logo overlay -->
+        <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/68917890a95ec878b336ff92_BURUNDI-BOT-COMING-SOON-05-08-2025%20(1).png" 
+             alt="Burundi Bot Coming Soon" 
+             class="logo-image" 
+             id="logoImage">
+        
         <!-- White overlay to hide "Built with Spline" -->
         <div class="spline-overlay"></div>
     </div>
     
-    <a href="https://twitter.com" target="_blank" class="twitter-button" id="twitterBtn">
-        <svg class="twitter-icon" viewBox="0 0 24 24">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-        Twitter
-    </a>
+    <div class="social-buttons">
+        <a href="https://x.com" target="_blank" class="social-button" id="twitterBtn">
+            <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/689178ebf786d570b0c29520_tw.png" 
+                 alt="X/Twitter" 
+                 class="social-icon">
+        </a>
+        <a href="https://bags.fm" target="_blank" class="social-button" id="bagsBtn">
+            <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/689178ebe6ce2251f11fdfa3_68635025e094ea312d26dd74_twitter-x-logo-101C7D2420-seeklogo.com_%20(1).png" 
+                 alt="Bags.fm" 
+                 class="social-icon">
+        </a>
+    </div>
     
     <script>
         const iframe = document.getElementById('splineFrame');
@@ -164,14 +185,15 @@
             errorMessage.style.display = 'block';
         });
         
-        // Fade in the title text after 2 seconds
+        // Fade in the logo after 1.5 seconds
         setTimeout(() => {
-            document.getElementById('titleText').classList.add('fade-in');
-        }, 2000);
+            document.getElementById('logoImage').classList.add('fade-in');
+        }, 1500);
         
-        // Fade in the Twitter button after 3 seconds
+        // Fade in the social buttons after 3 seconds
         setTimeout(() => {
             document.getElementById('twitterBtn').classList.add('fade-in');
+            document.getElementById('bagsBtn').classList.add('fade-in');
         }, 3000);
         
         // Suppress console errors from iframe content
