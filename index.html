@@ -33,68 +33,50 @@
             background: #000;
         }
         
-        .loading-overlay {
+        .spline-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 18px;
-            z-index: 100;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .loading-spinner {
-            width: 40px;
+            bottom: 15px;
+            right: 15px;
+            width: 120px;
             height: 40px;
-            border: 3px solid #333;
-            border-top: 3px solid #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 15px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            background: white;
+            z-index: 500;
+            border-radius: 8px;
         }
         
         .twitter-button {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #1DA1F2;
+            top: 25px;
+            left: 25px;
+            background: linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%);
             color: white;
             border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 16px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             opacity: 0;
-            transition: all 0.5s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(29, 161, 242, 0.3);
+            box-shadow: 0 8px 25px rgba(29, 161, 242, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .twitter-button:hover {
-            background: #1991DB;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(29, 161, 242, 0.4);
+            background: linear-gradient(135deg, #0d8bd9 0%, #0a7bc4 100%);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(29, 161, 242, 0.5);
+        }
+        
+        .twitter-button:active {
+            transform: translateY(-1px) scale(0.98);
         }
         
         .twitter-button.fade-in {
@@ -102,9 +84,14 @@
         }
         
         .twitter-icon {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+        
+        .twitter-button:hover .twitter-icon {
+            transform: rotate(-5deg) scale(1.1);
         }
         
         .error-message {
@@ -122,11 +109,6 @@
 </head>
 <body>
     <div class="spline-container">
-        <div class="loading-overlay" id="loadingOverlay">
-            <div class="loading-spinner"></div>
-            <span>Loading Spline Scene...</span>
-        </div>
-        
         <div class="error-message" id="errorMessage">
             <h3>Unable to load Spline scene</h3>
             <p>Please check your internet connection and try refreshing the page.</p>
@@ -138,6 +120,9 @@
                 allowfullscreen
                 sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
         </iframe>
+        
+        <!-- White overlay to hide "Built with Spline" -->
+        <div class="spline-overlay"></div>
     </div>
     
     <a href="https://twitter.com" target="_blank" class="twitter-button" id="twitterBtn">
@@ -149,24 +134,9 @@
     
     <script>
         const iframe = document.getElementById('splineFrame');
-        const loadingOverlay = document.getElementById('loadingOverlay');
         const errorMessage = document.getElementById('errorMessage');
         
-        // Hide loading overlay after iframe loads (or timeout)
-        let loadingTimeout = setTimeout(() => {
-            loadingOverlay.classList.add('hidden');
-        }, 5000); // Hide loading after 5 seconds regardless
-        
-        iframe.addEventListener('load', () => {
-            clearTimeout(loadingTimeout);
-            setTimeout(() => {
-                loadingOverlay.classList.add('hidden');
-            }, 1000); // Small delay to ensure scene is ready
-        });
-        
         iframe.addEventListener('error', () => {
-            clearTimeout(loadingTimeout);
-            loadingOverlay.classList.add('hidden');
             errorMessage.style.display = 'block';
         });
         
