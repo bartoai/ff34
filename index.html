@@ -17,9 +17,16 @@
             background: #000;
         }
         
-        spline-viewer {
+        .spline-container {
             width: 100vw;
             height: 100vh;
+            position: relative;
+        }
+        
+        .spline-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
             display: block;
         }
         
@@ -63,8 +70,12 @@
     </style>
 </head>
 <body>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.40/build/spline-viewer.js"></script>
-    <spline-viewer url="undefined"></spline-viewer>
+    <div class="spline-container">
+        <iframe src="https://prod.spline.design/GE1T2F5p5zxvbd3H/scene.splinecode" 
+                class="spline-iframe"
+                allowfullscreen>
+        </iframe>
+    </div>
     
     <a href="https://twitter.com" target="_blank" class="twitter-button" id="twitterBtn">
         <svg class="twitter-icon" viewBox="0 0 24 24">
