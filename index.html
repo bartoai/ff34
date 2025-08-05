@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spline Scene</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        spline-viewer {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+        
+        .twitter-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #1DA1F2;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(29, 161, 242, 0.3);
+        }
+        
+        .twitter-button:hover {
+            background: #1991DB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(29, 161, 242, 0.4);
+        }
+        
+        .twitter-button.fade-in {
+            opacity: 1;
+        }
+        
+        .twitter-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.40/build/spline-viewer.js"></script>
+    <spline-viewer url="undefined"></spline-viewer>
+    
+    <a href="https://twitter.com" target="_blank" class="twitter-button" id="twitterBtn">
+        <svg class="twitter-icon" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        Twitter
+    </a>
+    
+    <script>
+        // Fade in the Twitter button after 3 seconds
+        setTimeout(() => {
+            document.getElementById('twitterBtn').classList.add('fade-in');
+        }, 3000);
+    </script>
+</body>
+</html>
