@@ -15,12 +15,14 @@
             height: 100%;
             overflow: hidden;
             background: #000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         
         .spline-container {
             width: 100vw;
             height: 100vh;
             position: relative;
+            background: #000;
         }
         
         .spline-iframe {
@@ -28,6 +30,43 @@
             height: 100%;
             border: none;
             display: block;
+            background: #000;
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .twitter-button {
@@ -67,13 +106,37 @@
             height: 20px;
             fill: currentColor;
         }
+        
+        .error-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff6b6b;
+            text-align: center;
+            font-size: 16px;
+            display: none;
+            z-index: 200;
+        }
     </style>
 </head>
 <body>
     <div class="spline-container">
-        <iframe src="https://prod.spline.design/GE1T2F5p5zxvbd3H/scene.splinecode" 
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <span>Loading Spline Scene...</span>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            <h3>Unable to load Spline scene</h3>
+            <p>Please check your internet connection and try refreshing the page.</p>
+        </div>
+        
+        <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-UzhjroxQdkyENqM2H3T6FYJD/" 
                 class="spline-iframe"
-                allowfullscreen>
+                id="splineFrame"
+                allowfullscreen
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
         </iframe>
     </div>
     
@@ -85,10 +148,40 @@
     </a>
     
     <script>
+        const iframe = document.getElementById('splineFrame');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Hide loading overlay after iframe loads (or timeout)
+        let loadingTimeout = setTimeout(() => {
+            loadingOverlay.classList.add('hidden');
+        }, 5000); // Hide loading after 5 seconds regardless
+        
+        iframe.addEventListener('load', () => {
+            clearTimeout(loadingTimeout);
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+            }, 1000); // Small delay to ensure scene is ready
+        });
+        
+        iframe.addEventListener('error', () => {
+            clearTimeout(loadingTimeout);
+            loadingOverlay.classList.add('hidden');
+            errorMessage.style.display = 'block';
+        });
+        
         // Fade in the Twitter button after 3 seconds
         setTimeout(() => {
             document.getElementById('twitterBtn').classList.add('fade-in');
         }, 3000);
+        
+        // Suppress console errors from iframe content
+        window.addEventListener('error', (e) => {
+            if (e.filename && e.filename.includes('spline')) {
+                e.preventDefault();
+                return true;
+            }
+        });
     </script>
 </body>
 </html>
