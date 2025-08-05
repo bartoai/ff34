@@ -35,48 +35,48 @@
         
         .spline-overlay {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
-            width: 120px;
-            height: 40px;
-            background: white;
+            bottom: 10px;
+            right: 10px;
+            width: 140px;
+            height: 50px;
+            background: #f0f0f0;
             z-index: 500;
-            border-radius: 8px;
+            border-radius: 6px;
         }
         
         .twitter-button {
             position: fixed;
             top: 25px;
             left: 25px;
-            background: linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            padding: 14px 24px;
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
-            box-shadow: 0 8px 25px rgba(29, 161, 242, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
         }
         
         .twitter-button:hover {
-            background: linear-gradient(135deg, #0d8bd9 0%, #0a7bc4 100%);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 35px rgba(29, 161, 242, 0.5);
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
         }
         
         .twitter-button:active {
-            transform: translateY(-1px) scale(0.98);
+            transform: translateY(0px);
         }
         
         .twitter-button.fade-in {
@@ -84,14 +84,35 @@
         }
         
         .twitter-icon {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             fill: currentColor;
             transition: transform 0.3s ease;
         }
         
         .twitter-button:hover .twitter-icon {
-            transform: rotate(-5deg) scale(1.1);
+            transform: scale(1.1);
+        }
+        
+        .title-text {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0, 0, 0, 0.7);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 600;
+            text-align: center;
+        }
+        
+        .title-text.fade-in {
+            opacity: 1;
         }
         
         .error-message {
@@ -113,6 +134,9 @@
             <h3>Unable to load Spline scene</h3>
             <p>Please check your internet connection and try refreshing the page.</p>
         </div>
+        
+        <!-- Title text above robot -->
+        <div class="title-text" id="titleText">Burundi Bot</div>
         
         <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-UzhjroxQdkyENqM2H3T6FYJD/" 
                 class="spline-iframe"
@@ -139,6 +163,11 @@
         iframe.addEventListener('error', () => {
             errorMessage.style.display = 'block';
         });
+        
+        // Fade in the title text after 2 seconds
+        setTimeout(() => {
+            document.getElementById('titleText').classList.add('fade-in');
+        }, 2000);
         
         // Fade in the Twitter button after 3 seconds
         setTimeout(() => {
