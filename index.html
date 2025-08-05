@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spline Scene</title>
+    <title>Burundi Bot</title>
     <link rel="icon" type="image/png" href="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/68917922e5bfa53990eff4e1_58fa949d867961412ca54ad778dab377.png">
     <style>
         * {
@@ -45,53 +45,56 @@
             border-radius: 6px;
         }
         
-        .twitter-button {
+        .social-buttons {
             position: fixed;
             top: 25px;
             left: 25px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .social-button {
             background: rgba(0, 0, 0, 0.8);
-            color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.2px;
+            padding: 12px;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(20px);
+            width: 48px;
+            height: 48px;
         }
         
-        .twitter-button:hover {
+        .social-button:hover {
             background: rgba(0, 0, 0, 0.9);
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             border-color: rgba(255, 255, 255, 0.2);
         }
         
-        .twitter-button:active {
+        .social-button:active {
             transform: translateY(0px);
         }
         
-        .twitter-button.fade-in {
+        .social-button.fade-in {
             opacity: 1;
         }
         
-        .twitter-icon {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
             transition: transform 0.3s ease;
         }
         
-        .twitter-button:hover .twitter-icon {
+        .social-button:hover .social-icon {
             transform: scale(1.1);
         }
         
@@ -154,7 +157,7 @@
                 sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
         </iframe>
         
-        <!-- Logo overlay -->
+        <!-- Coming Soon Logo -->
         <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/68917890a95ec878b336ff92_BURUNDI-BOT-COMING-SOON-05-08-2025%20(1).png" 
              alt="Burundi Bot Coming Soon" 
              class="logo-image" 
@@ -164,6 +167,7 @@
         <div class="spline-overlay"></div>
     </div>
     
+    <!-- Social Media Buttons -->
     <div class="social-buttons">
         <a href="https://x.com" target="_blank" class="social-button" id="twitterBtn">
             <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/689178ebf786d570b0c29520_tw.png" 
@@ -181,20 +185,37 @@
         const iframe = document.getElementById('splineFrame');
         const errorMessage = document.getElementById('errorMessage');
         
+        // Handle iframe errors
         iframe.addEventListener('error', () => {
             errorMessage.style.display = 'block';
         });
         
-        // Fade in the logo after 1.5 seconds
+        // Fade in social media buttons after 2 seconds
+        setTimeout(() => {
+            const twitterBtn = document.getElementById('twitterBtn');
+            const bagsBtn = document.getElementById('bagsBtn');
+            
+            console.log('Adding fade-in to buttons'); // Debug log
+            
+            if (twitterBtn) {
+                twitterBtn.classList.add('fade-in');
+                console.log('Twitter button found and fade-in added');
+            } else {
+                console.log('Twitter button not found');
+            }
+            
+            if (bagsBtn) {
+                bagsBtn.classList.add('fade-in');
+                console.log('Bags button found and fade-in added');
+            } else {
+                console.log('Bags button not found');
+            }
+        }, 2000);
+        
+        // Fade in coming soon logo after 6 seconds
         setTimeout(() => {
             document.getElementById('logoImage').classList.add('fade-in');
-        }, 1500);
-        
-        // Fade in the social buttons after 3 seconds
-        setTimeout(() => {
-            document.getElementById('twitterBtn').classList.add('fade-in');
-            document.getElementById('bagsBtn').classList.add('fade-in');
-        }, 3000);
+        }, 6000);
         
         // Suppress console errors from iframe content
         window.addEventListener('error', (e) => {
